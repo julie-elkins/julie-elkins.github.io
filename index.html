@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Julie Elkins builds practical evidence and assurance systems for AI agents.">
+    <meta name="theme-color" content="#101926">
+    <title>Julie Elkins — AI evaluation and assurance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="#work">Work</a>
+          <a href="#learn">Learn</a>
+          <a href="#principles">Principles</a>
+          <a href="#connect">Connect</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">AI evaluation · assurance · learning</p>
+          <div class="hero-profile">
+            <img src="assets/julie-headshot.jpeg" alt="Julie Elkins wearing a navy blazer by the water">
+            <span>Julie Elkins<br><small>Building, measuring, and explaining AI systems.</small></span>
+          </div>
+          <h1>Building practical evidence systems for AI agents.</h1>
+          <p class="hero-lede">
+            I build and study the controls that help teams tell the difference between
+            an agent that produced an answer and an agent whose result is safe to rely on.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#work">Explore the work <span aria-hidden="true">↓</span></a>
+            <a class="button button-secondary" href="#learn">Start learning <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="hero-card" aria-label="The question behind the work">
+          <div class="card-topline">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>Assurance question</span>
+          </div>
+          <p class="hero-question">Can this successful-looking run still support the decision we want to make?</p>
+          <div class="receipt-line">
+            <span>evidence</span>
+            <span class="line"></span>
+            <span class="receipt-value">validity / scope / expiry</span>
+          </div>
+          <div class="hero-card-footer">
+            <span>provider-neutral</span>
+            <span>metadata-first</span>
+            <span>human-readable</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="proof-strip" aria-label="How the work is grounded">
+        <div class="shell proof-grid">
+          <div>
+            <p class="proof-number">01</p>
+            <p class="proof-label">Measure before claiming</p>
+          </div>
+          <div>
+            <p class="proof-number">02</p>
+            <p class="proof-label">Make limits visible</p>
+          </div>
+          <div>
+            <p class="proof-number">03</p>
+            <p class="proof-label">Teach the design choice</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell" id="work">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected work</p>
+            <h2>Projects built to be read, run, and questioned.</h2>
+          </div>
+          <p class="section-intro">
+            Each project is public by design. The documentation explains not only what
+            the code does, but what the result proves—and what it does not prove.
+          </p>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card project-card-featured">
+            <div class="project-meta">
+              <span class="project-index">01</span>
+              <span class="tag">flagship</span>
+            </div>
+            <h3>Agent Assurance Harness</h3>
+            <p>
+              A provider-neutral control plane for evidence, abstention, shadow
+              execution, reauthorization, and release gates for AI agents.
+            </p>
+            <div class="project-detail">
+              <span>What it asks</span>
+              <strong>Can this evidence still be trusted after the run changes?</strong>
+            </div>
+            <a class="text-link" href="https://github.com/julie-elkins/agent-assurance-harness" target="_blank" rel="noreferrer">Open repository <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-meta">
+              <span class="project-index">02</span>
+              <span class="tag">research</span>
+            </div>
+            <h3>LLM Evaluation Validity</h3>
+            <p>
+              A study of whether an evaluation harness measures the capability it
+              claims to measure, using reliability and psychometric reasoning.
+            </p>
+            <div class="project-detail">
+              <span>Design lesson</span>
+              <strong>A score is not evidence until its validity is examined.</strong>
+            </div>
+            <a class="text-link" href="https://github.com/julie-elkins/llm-eval-validity" target="_blank" rel="noreferrer">Read the study <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-meta">
+              <span class="project-index">03</span>
+              <span class="tag">infrastructure</span>
+            </div>
+            <h3>Evidence Ledger</h3>
+            <p>
+              A synthetic, auditable evidence pipeline with local and AWS execution
+              paths for recording what a run did and what can be replayed.
+            </p>
+            <div class="project-detail">
+              <span>Design lesson</span>
+              <strong>Evidence needs identity, scope, and a history of change.</strong>
+            </div>
+            <a class="text-link" href="https://github.com/julie-elkins/evidence-ledger" target="_blank" rel="noreferrer">Inspect the ledger <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-meta">
+              <span class="project-index">04</span>
+              <span class="tag">systems lab</span>
+            </div>
+            <h3>Production AI Engineering Bridge Lab</h3>
+            <p>
+              A synthetic customer-service agent that tests how models, prompts,
+              retrieval, and tools change the reliability of a production-shaped
+              workflow.
+            </p>
+            <div class="project-detail">
+              <span>Design lesson</span>
+              <strong>The tool and data boundary can matter more than the prompt.</strong>
+            </div>
+            <a class="text-link" href="https://github.com/julie-elkins/Production-AI-Engineering-Bridge-Lab" target="_blank" rel="noreferrer">Open the systems lab <span aria-hidden="true">↗</span></a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-meta">
+              <span class="project-index">05</span>
+              <span class="tag">drift study</span>
+            </div>
+            <h3>Driftwood</h3>
+            <p>
+              A documentation-drift detector that checks whether a page still
+              matches the code, with a labelled evaluation harness for the judge.
+            </p>
+            <div class="project-detail">
+              <span>Design lesson</span>
+              <strong>A control is not trustworthy until its own repeatability is measured.</strong>
+            </div>
+            <a class="text-link" href="https://github.com/julie-elkins/driftwood" target="_blank" rel="noreferrer">Inspect the drift study <span aria-hidden="true">↗</span></a>
+          </article>
+        </div>
+      </section>
+
+      <section class="section section-dark" id="learn">
+        <div class="shell learning-layout">
+          <div class="learning-copy">
+            <p class="eyebrow eyebrow-light">For learners</p>
+            <h2>You should not have to reverse-engineer the reasoning.</h2>
+            <p>
+              The learning path starts with the decision a system must support, then
+              works backward through evidence, evaluation, tools, and controls. It is
+              for engineers who want to understand why a design is safe enough to use,
+              not just how to make a demo run.
+            </p>
+            <div class="learning-actions">
+              <a class="button button-light" href="https://github.com/julie-elkins/agent-evaluation-learning-path" target="_blank" rel="noreferrer">Open the learning path <span aria-hidden="true">↗</span></a>
+              <a class="button button-secondary" href="https://www.youtube.com/@JulieElkins" target="_blank" rel="noreferrer">Watch the videos <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <div class="learning-list">
+            <a class="learning-item" href="https://github.com/julie-elkins/agent-evaluation-learning-path" target="_blank" rel="noreferrer">
+              <span class="learning-number">01</span>
+              <span>
+                <strong>Agent evaluation learning path</strong>
+                <small>Build the vocabulary and the checks in dependency order.</small>
+              </span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="learning-item" href="https://github.com/julie-elkins/claude-architect-lab" target="_blank" rel="noreferrer">
+              <span class="learning-number">02</span>
+              <span>
+                <strong>Claude Architect Lab</strong>
+                <small>Work through a hands-on provider architecture lab.</small>
+              </span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="learning-item" href="https://github.com/julie-elkins/mcp-server-design-guide" target="_blank" rel="noreferrer">
+              <span class="learning-number">03</span>
+              <span>
+                <strong>MCP Server Design Guide</strong>
+                <small>Learn the tool boundary before adding more tools.</small>
+              </span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="learning-item" href="https://github.com/julie-elkins/agent-systems-design-guide" target="_blank" rel="noreferrer">
+              <span class="learning-number">04</span>
+              <span>
+                <strong>Agent Systems Design Guide</strong>
+                <small>Learn how to explain the decisions behind an agent system.</small>
+              </span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+            <a class="learning-item" href="https://www.youtube.com/@JulieElkins" target="_blank" rel="noreferrer">
+              <span class="learning-number">05</span>
+              <span>
+                <strong>Video walkthroughs</strong>
+                <small>See the ideas explained in a more conversational format.</small>
+              </span>
+              <span class="arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section shell" id="principles">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Working principles</p>
+            <h2>The design choices are part of the deliverable.</h2>
+            <a class="text-link principle-link" href="https://github.com/julie-elkins/ai-design-guides" target="_blank" rel="noreferrer">Browse the AI design guides <span aria-hidden="true">↗</span></a>
+          </div>
+          <p class="section-intro">
+            A system should make it easier for the next engineer to challenge it,
+            reproduce it, and improve it.
+          </p>
+        </div>
+        <div class="principles-grid">
+          <article class="principle">
+            <span class="principle-icon" aria-hidden="true">↗</span>
+            <h3>Evidence before confidence</h3>
+            <p>Measure the boundary of a claim before turning a result into a recommendation.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-icon" aria-hidden="true">↺</span>
+            <h3>Change should have a consequence</h3>
+            <p>When a model, tool, policy, or data revision changes, old evidence may need reauthorization.</p>
+          </article>
+          <article class="principle">
+            <span class="principle-icon" aria-hidden="true">?</span>
+            <h3>Unknown is a valid result</h3>
+            <p>A system that reports what it could not check is more useful than one that always sounds certain.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section shell next-section">
+        <div class="next-card">
+          <div>
+            <p class="eyebrow">Coming next</p>
+            <h2>Long-form writing and a research paper are on the roadmap.</h2>
+          </div>
+          <p>
+            The first release stays deliberately small. A future hosted layer can add
+            essays, paper materials, interactive demos, and a searchable project index
+            without changing the public story.
+          </p>
+        </div>
+      </section>
+
+      <section class="section section-contact" id="connect">
+        <div class="shell contact-layout">
+          <div>
+            <p class="eyebrow eyebrow-light">Keep in touch</p>
+            <h2>Follow the work as it becomes more useful.</h2>
+          </div>
+          <div class="contact-links">
+            <a href="https://www.linkedin.com/in/julie-elkins/" target="_blank" rel="noreferrer">
+              <span>LinkedIn</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a href="https://www.youtube.com/@JulieElkins" target="_blank" rel="noreferrer">
+              <span>YouTube</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+            <a href="https://github.com/julie-elkins" target="_blank" rel="noreferrer">
+              <span>GitHub</span>
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>Julie Elkins</span>
+        <span>Evidence, assurance, and learning for AI systems.</span>
+        <span>© <span id="year"></span></span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
