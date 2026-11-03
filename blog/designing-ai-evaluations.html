@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A practical explanation of how Julie Elkins designs AI evaluations that can support a decision.">
+    <meta name="theme-color" content="#101926">
+    <title>Designing AI Evaluations That Can Support a Decision — Julie Elkins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="../">Home</a>
+          <a href="../#work">Work</a>
+          <a href="../#learn">Learn</a>
+          <a href="./">Writing</a>
+          <a href="../#connect">Connect</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="article-hero">
+        <div class="shell article-hero-inner">
+          <p class="eyebrow eyebrow-light">Evaluation design · October 2026</p>
+          <h1>Designing AI Evaluations That Can Support a Decision</h1>
+          <p class="article-hero-lede">
+            A measurement system should make clear what happened, what was missing,
+            and what decision the result is allowed to support.
+          </p>
+        </div>
+      </section>
+
+      <article class="section shell article-body">
+        <p class="article-kicker">
+          I started building evaluation systems because a green result can still be
+          the wrong evidence for the decision in front of a team.
+        </p>
+
+        <p>
+          A model can return a valid-looking answer. A tool call can return HTTP 200.
+          A dashboard can turn both into a green row. None of those facts establishes
+          that the workflow completed the task safely, used the right evidence, or
+          produced a result that is still valid after the system changes.
+        </p>
+
+        <p>
+          I am learning to design evaluations from the decision backward. The
+          evaluation is not only a score-producing script. It is the measurement
+          system that tells a team whether the score is strong enough to use.
+        </p>
+
+        <h2>1. Start with the decision, not the metric</h2>
+        <p>
+          “Did the model answer correctly?” is often too small a question for an
+          agent workflow. A tool-using agent may need to select the correct tool,
+          use an authorized side effect, preserve an operation identifier, detect
+          stale evidence, abstain when required, and report what actually happened.
+        </p>
+
+        <p>
+          The decision might be whether to release a workflow, allow it to continue
+          operating, or route a case to a human. Each decision needs a different
+          measurement boundary. If the evaluation measures only answer quality, it
+          can miss the failure that matters most: a successful-looking result that
+          cannot be trusted.
+        </p>
+
+        <h2>2. Separate task outcome from evidence quality</h2>
+        <p>
+          One of the most useful distinctions in my work is between the outcome and
+          the evidence for the outcome. A task can appear complete while required
+          evidence is absent. Conversely, an agent can safely abstain and provide
+          the evidence needed to show that it did not claim completion.
+        </p>
+
+        <p>
+          I use an evidence contract: the minimum observable information required
+          before the harness treats a result as usable evidence. The contract can
+          include a classification, required identifiers, operation state,
+          authorization state, retry count, and bounded cost information.
+        </p>
+
+        <p>
+          This is why provider-valid JSON is not the same as valid assurance
+          evidence. A schema can make the output well-formed while the fields still
+          describe an unsupported claim.
+        </p>
+
+        <h2>3. Test the evaluator, not only the system</h2>
+        <p>
+          An evaluation can fail in two directions. It can miss a real failure, or
+          it can report a failure that the system did not have. Both matter when the
+          result controls release or review work.
+        </p>
+
+        <p>
+          That means the evaluator needs its own questions: what is the reference
+          decision, how was it established, how much agreement exists between
+          reviewers, and how much of the result changes when the same measurement
+          is repeated?
+        </p>
+
+        <p>
+          In the public response-quality study, the first reviewer round exposed
+          ambiguity in a generic workflow-state field. The result was not a reason
+          to change the provider runs. It was a reason to version the rubric and
+          test whether a revised instrument is easier for independent reviewers to
+          apply.
+        </p>
+
+        <h2>4. Report refusals and denominators</h2>
+        <p>
+          A refusal is not a successful result, and it should not disappear from
+          the denominator. In the frozen response-quality study, each condition
+          attempted 30 synthetic cases. The public record reports both evidence
+          satisfaction among accepted traces and evidence satisfaction over all
+          attempted cases.
+        </p>
+
+        <p>
+          The distinction changes the interpretation. A treatment can make accepted
+          traces look slightly better while producing more refusals, leaving the
+          end-to-end yield of usable evidence lower. Reporting only the accepted
+          traces would hide the operational cost of the refusal surface.
+        </p>
+
+        <h2>5. Treat system change as a measurement event</h2>
+        <p>
+          Evidence belongs to a particular system revision. A prompt change, tool
+          change, retrieval change, authorization change, evaluator change, or
+          deployment change can make an older reliability claim incomplete even when
+          the stored score remains unchanged.
+        </p>
+
+        <p>
+          That is the problem behind my reauthorization study. The question is not
+          whether a prior report was mathematically correct when it was produced.
+          The question is whether it still supports the decision being made after
+          the workflow has changed.
+        </p>
+
+        <h2>6. Make the limits part of the result</h2>
+        <p>
+          The sentence I want every evaluation to answer is: “What does this result
+          not prove?” A small synthetic matrix can expose a protocol failure without
+          estimating a production failure rate. A live-provider comparison can show
+          a configuration-specific refusal pattern without ranking providers. A
+          reviewer calibration round can expose rubric ambiguity without validating
+          model quality.
+        </p>
+
+        <p>
+          Those limits are not an apology attached after the result. They define
+          what decision the result is allowed to support.
+        </p>
+
+        <aside class="article-callout">
+          The design habit I am keeping: record what was required, what was observed,
+          what was missing, and what the result does not establish.
+        </aside>
+
+        <h2>Where I am going next</h2>
+        <p>
+          I am finishing a second, separately versioned reviewer round for the
+          response-quality study. The provider experiments remain frozen while the
+          human-calibration evidence is collected. That separation matters: changing
+          the rubric is a measurement change, not a way to make an inconvenient
+          provider result look better.
+        </p>
+
+        <p>
+          The working artifacts are public in
+          <a href="https://github.com/julie-elkins/llm-eval-validity" target="_blank" rel="noreferrer">LLM Evaluation Validity</a>.
+          The research paper and its reproducibility materials live there; this
+          article is the explanation layer for readers who want the reasoning before
+          they open the repository.
+        </p>
+
+        <h2>A practical learning path</h2>
+        <p>
+          If you want to work through these ideas, the
+          <a href="https://github.com/julie-elkins/claude-evaluation-lab" target="_blank" rel="noreferrer">Claude Evaluation Lab</a>
+          turns them into a learner path. It begins by separating transport success
+          from task success, then layers deterministic checks, semantic checks, and
+          human review before connecting traces to release and observability controls.
+        </p>
+
+        <ul>
+          <li>
+            Start with the
+            <a href="https://github.com/julie-elkins/claude-evaluation-lab/tree/main/labs/01-semantic-outcomes" target="_blank" rel="noreferrer">semantic-outcomes lab</a>
+            to see why a successful request is not proof that the task succeeded.
+          </li>
+          <li>
+            Use the
+            <a href="https://github.com/julie-elkins/agent-assurance-harness" target="_blank" rel="noreferrer">Agent Assurance Harness</a>
+            to inspect the executable evidence and control boundary.
+          </li>
+          <li>
+            Use the
+            <a href="https://github.com/julie-elkins/agent-systems-design-guide" target="_blank" rel="noreferrer">Agent Systems Design Guide</a>
+            for the shared vocabulary and design patterns.
+          </li>
+        </ul>
+
+        <p>
+          The required course path is offline and synthetic, meaning it uses
+          bounded local cases rather than live provider requests. The optional live
+          Claude adapter is an extension, not evidence that the course proves live
+          model quality or production readiness.
+        </p>
+
+        <p class="article-source-note">
+          Continue with the
+          <a href="https://github.com/julie-elkins/llm-eval-validity/tree/main/research/response-quality" target="_blank" rel="noreferrer">response-quality study</a>
+          or <a href="../">return to the main site</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>Julie Elkins</span>
+        <span>Evidence, assurance, and learning for AI systems.</span>
+        <span>© <span id="year"></span></span>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
