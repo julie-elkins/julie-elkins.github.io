@@ -114,6 +114,43 @@
           evidence needed to support the claim.
         </p>
 
+        <h2>Why decomposition exists -- and why it can fail</h2>
+
+        <p>
+          Integrated system design means keeping context, alternatives, and
+          decision state together long enough to evaluate them. Earlier systems
+          such as Hearsay-II and Harpy explored different ways to coordinate
+          specialized knowledge, preserve competing hypotheses, and focus search.
+          The lesson is not that one historical architecture solves modern agent
+          systems. It is that architecture determines whether uncertainty
+          survives long enough to be checked.
+        </p>
+
+        <p>
+          Decomposition helps when a task contains separable subproblems,
+          different context or permission boundaries, independent verification
+          steps, or natural recovery points. It becomes a liability when each
+          stage passes only a fluent conclusion to the next stage.
+        </p>
+
+        <p>
+          Under a simple independence model, a workflow with <em>n</em>
+          sequential steps and per-step success probability <em>p</em> has
+          approximate end-to-end success of <em>p<sup>n</sup></em>. Real
+          workflows are not independent, so this is a warning model rather than
+          a universal law. The practical point is that strong local steps can
+          still produce weak end-to-end reliability when failures propagate.
+        </p>
+
+        <p>
+          An agent is justified when the system must interpret changing state,
+          choose among tools, recover from outcomes, or ask for human input. A
+          deterministic workflow -- one whose prescribed steps are fixed for a
+          given input -- is usually better when the task is known and fully
+          specified. The engineering question is where an agent adds judgment,
+          and where a deterministic control should constrain it.
+        </p>
+
         <h2>What the recent results do not prove</h2>
 
         <p>
