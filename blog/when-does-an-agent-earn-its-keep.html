@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A research-grounded framework for deciding when an agent or multi-agent architecture earns its cost and complexity.">
+    <meta name="theme-color" content="#101926">
+    <title>When Does an Agent Earn Its Keep? — Julie Elkins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="../">Home</a>
+          <a href="../#work">Work</a>
+          <a href="../#learn">Learn</a>
+          <a href="./">Writing</a>
+          <a href="../#connect">Connect</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="article-hero">
+        <div class="shell article-hero-inner">
+          <p class="eyebrow eyebrow-light">Agent architecture · November 2026</p>
+          <h1>When Does an Agent Earn Its Keep?</h1>
+          <p class="article-hero-lede">
+            Before adding agents, ask what the extra decomposition lets the system
+            measure, control, or recover.
+          </p>
+        </div>
+      </section>
+
+      <article class="section shell article-body">
+        <p class="article-kicker">
+          A multi-agent diagram is not evidence that a multi-agent system is the
+          right system.
+        </p>
+
+        <p>
+          The current conversation about agentic AI often starts with architecture:
+          a planner, a researcher, a critic, a router, and a final writer. The
+          more useful starting point is the decision the system must support. What
+          can the added structure verify? What uncertainty does it preserve? What
+          failure can it stop before it becomes an external action?
+        </p>
+
+        <p>
+          This is not an argument against agents. It is an argument for treating
+          decomposition as a hypothesis. If splitting a workflow into stages or
+          agents does not improve the end-to-end result enough to justify its
+          latency, cost, failure surface, and maintenance burden, the simpler
+          system is the better engineering decision.
+        </p>
+
+        <h2>The science has been studying these choices for a long time</h2>
+
+        <p>
+          The names have changed, but the design questions are familiar. Earlier
+          speech systems explored modular knowledge sources that exchanged
+          hypotheses through shared working memory. Other systems integrated more
+          of the search and carried multiple plausible alternatives forward.
+          The historical lesson is not that one architecture always wins. It is
+          that committing too early can discard the alternatives a later stage
+          would have needed.
+        </p>
+
+        <p>
+          The
+          <a href="https://www.researchgate.net/publication/220815581_A_Retrospective_View_of_the_Hearsay-II_Architecture" target="_blank" rel="noreferrer">Hearsay-II retrospective</a>
+          describes the blackboard architecture and its cooperating knowledge
+          sources. The
+          <a href="https://ntrs.nasa.gov/api/citations/19930075166/downloads/19930075166.pdf" target="_blank" rel="noreferrer">NASA report on Harpy</a>
+          documents a different approach based on integrated search and competing
+          hypotheses. These systems do not settle today’s agent question, but they
+          give us a vocabulary for discussing modularity, shared state, search,
+          and delayed commitment.
+        </p>
+
+        <h2>What current research is measuring</h2>
+
+        <p>
+          Current agent research has moved the question from “did the model
+          produce a plausible answer?” to “did the system complete the task in
+          the environment it was given?” That includes tool choice, policy
+          following, state changes, repeated reliability, and whether the
+          benchmark’s task and scoring design justify its claim.
+        </p>
+
+        <p>
+          Evaluation research also treats the measurement system as an object of
+          study. A benchmark can vary because of task framing, the environment,
+          the scaffold around the model, the judge, or the reviewer. A score is
+          not automatically a property of the model alone.
+        </p>
+
+        <p>
+          That is why my working evaluation practice separates task outcome from
+          evidence quality. A result can look complete while missing the
+          identifier, authorization record, source freshness, or reconciliation
+          evidence needed to support the claim.
+        </p>
+
+        <h2>What the recent results do not prove</h2>
+
+        <p>
+          Recent work has found cases where a single model performs as well as or
+          better than a multi-agent system when both receive the same reasoning
+          token budget. Other work studies how multi-agent behavior might be
+          distilled into a single end-to-end model. These are useful results, but
+          they are not a universal rule that one agent is always better.
+        </p>
+
+        <p>
+          The correct conclusion is narrower: an architecture comparison is only
+          interpretable when the resources and task are matched. Otherwise, a
+          multi-agent system may appear better because it received more calls,
+          more tokens, more opportunities to retry, or a more favorable task
+          decomposition.
+        </p>
+
+        <h2>The handoff is part of the measurement boundary</h2>
+
+        <p>
+          A handoff is the point where one stage gives information to another.
+          Passing only a fluent conclusion can erase the uncertainty that should
+          have changed the next decision. A safer handoff carries the evidence
+          needed to check the conclusion, the alternatives that remain plausible,
+          the source or tool state, and the reason to stop or escalate.
+        </p>
+
+        <p>
+          This is the connection to the evaluation work I have been building. An
+          evidence contract defines the minimum observable information required
+          before a result can be treated as usable evidence. The contract does
+          not make an agent correct. It prevents a well-formed response from
+          being mistaken for a supported result.
+        </p>
+
+        <h2>When does an agent earn its keep?</h2>
+
+        <p>
+          I would keep the additional architecture only when a matched evaluation
+          shows a benefit that matters to the decision. The comparison should
+          include:
+        </p>
+
+        <ul>
+          <li>end-to-end task outcome, not only intermediate answer quality;</li>
+          <li>evidence completeness and correctness at each handoff;</li>
+          <li>tool and permission correctness;</li>
+          <li>recovery, refusal, stopping, and escalation behavior;</li>
+          <li>latency, token or request cost, and retry amplification;</li>
+          <li>variance across repeated runs; and</li>
+          <li>maintenance cost after a model, prompt, tool, or policy change.</li>
+        </ul>
+
+        <p>
+          A subagent that performs well in isolation does not prove that the
+          overall workflow is better. The added component has to improve the
+          decision at the system boundary.
+        </p>
+
+        <h2>The experiment I want to run next</h2>
+
+        <p>
+          The practical next step is a matched comparison in the
+          <a href="https://github.com/julie-elkins/agent-assurance-harness" target="_blank" rel="noreferrer">Agent Assurance Harness</a>:
+          compare a flat workflow with a multi-agent workflow using the same
+          synthetic cases, tools, budget, permissions, and stopping rules.
+        </p>
+
+        <p>
+          A flat workflow means one primary agent loop. A multi-agent workflow
+          adds one or more specialized agents or handoff stages. Both paths
+          would have to produce the same observable evidence before the harness
+          could treat the result as supported.
+        </p>
+
+        <p>
+          The experiment would measure whether the extra handoffs improve
+          end-to-end evidence or only add more places for uncertainty to
+          disappear. It would report tradeoffs rather than force a winner. The
+          result might show that a multi-agent path earns its cost for one task
+          family and not another. That would be a useful result.
+        </p>
+
+        <p>
+          The comparison is planned, not completed. The existing
+          <a href="https://github.com/julie-elkins/agent-systems-design-guide/blob/main/AGENT_EVALUATION_AND_RELEASE.md" target="_blank" rel="noreferrer">agent evaluation and release guide</a>
+          already defines the matched-case questions. The next research phase
+          will turn those questions into a frozen protocol before running either
+          architecture.
+        </p>
+
+        <h2>The decision rule</h2>
+
+        <p>
+          Start with the simplest workflow that can meet the decision’s evidence
+          requirements. Add an agent, a handoff, or a specialist only when the
+          added structure creates a measurable control, verification boundary,
+          context boundary, or recovery path.
+        </p>
+
+        <p>
+          Then test the whole system again after the model, tools, prompts,
+          policies, or environment change. Architecture is not a permanent
+          property of the product. It is part of the measurement claim.
+        </p>
+
+        <aside class="article-callout">
+          The question I want an agent design to answer is simple: what does this
+          extra component let us know, stop, verify, or recover that the simpler
+          workflow could not?
+        </aside>
+
+        <h2>Further reading</h2>
+
+        <ul>
+          <li>
+            <a href="https://arxiv.org/abs/2604.02460" target="_blank" rel="noreferrer">Single-Agent LLMs Outperform Multi-Agent Systems on Multi-Hop Reasoning Under Equal Thinking Token Budgets</a>
+            -- a matched-budget architecture comparison.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2508.13167" target="_blank" rel="noreferrer">End-to-End Agent Foundation Models via Multi-Agent Distillation and Agentic RL</a>
+            -- one approach to compressing multi-agent behavior into an integrated model.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2507.02825" target="_blank" rel="noreferrer">Establishing Best Practices for Building Rigorous Agentic Benchmarks</a>
+            -- why task, environment, reward, and reporting design affect what a benchmark proves.
+          </li>
+          <li>
+            <a href="https://arxiv.org/abs/2505.10573" target="_blank" rel="noreferrer">Measurement to Meaning</a>
+            -- a validity-centered framework for connecting an evaluation to a decision.
+          </li>
+          <li>
+            <a href="https://github.com/julie-elkins/llm-eval-validity/tree/main/research/response-quality" target="_blank" rel="noreferrer">My response-quality study</a>
+            -- a bounded example of provider conditions, evidence contracts, and reviewer calibration.
+          </li>
+        </ul>
+
+        <p class="article-source-note">
+          Continue with
+          <a href="designing-ai-evaluations.html">Designing AI Evaluations That Can Support a Decision</a>
+          or <a href="../">return to the main site</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>Julie Elkins</span>
+        <span>Evidence, assurance, and learning for AI systems.</span>
+        <span>© <span id="year"></span></span>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
