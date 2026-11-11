@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="What a public coding-agent study showed about separating execution reliability, benchmark correctness, and evidence completeness.">
+    <meta name="theme-color" content="#101926">
+    <title>When the Benchmark Passes but the Evidence Fails — Julie Elkins</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <nav class="site-nav" aria-label="Primary navigation">
+          <a href="../">Home</a>
+          <a href="../#work">Work</a>
+          <a href="../#learn">Learn</a>
+          <a href="./">Writing</a>
+          <a href="../#connect">Connect</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="article-hero">
+        <div class="shell article-hero-inner">
+          <p class="eyebrow eyebrow-light">Agent evaluation · November 2026</p>
+          <h1>When the Benchmark Passes but the Evidence Fails</h1>
+          <p class="article-hero-lede">
+            A public coding-agent study showed why execution reliability,
+            benchmark correctness, and evidence completeness need separate measurements.
+          </p>
+        </div>
+      </section>
+
+      <article class="section shell article-body">
+        <p class="article-kicker">
+          Codex completed all ten matched tasks and passed seven. Mini-swe-agent completed
+          nine and passed six. The more important finding was that a passing task did not
+          automatically prove that the expected evidence existed.
+        </p>
+
+        <p>
+          I built a small
+          <a href="https://github.com/julie-elkins/harbor-assurance-adapter" target="_blank" rel="noreferrer">Harbor Assurance Adapter</a>
+          to run real coding agents through Harbor, the execution framework used for the
+          study, and feed bounded metadata into the
+          <a href="https://github.com/julie-elkins/agent-assurance-harness" target="_blank" rel="noreferrer">Agent Assurance Harness</a>.
+          The harness is a secondary assurance check: it does not judge the agent's
+          reasoning, but it can check whether the run left the metadata required to
+          support a public claim.
+        </p>
+
+        <p>
+          The benchmark was Terminal-Bench 2.0, a public coding-agent benchmark. The
+          comparison used the same ten tasks, one attempt per task, the same task-set
+          revision, and the same Finch compatibility path, meaning the same
+          container-execution setup. That boundary made the result more useful, but it
+          did not turn the study into a universal ranking of models or providers.
+        </p>
+
+        <h2>Three measurements, not one</h2>
+
+        <p>
+          I separated the study into three questions:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Execution reliability:</strong> did the agent reach a trustworthy
+            terminal state without a setup, timeout, provider, or transport failure?
+          </li>
+          <li>
+            <strong>Benchmark correctness:</strong> did the task verifier accept the
+            result?
+          </li>
+          <li>
+            <strong>Evidence completeness:</strong> did the run leave the bounded
+            metadata and trajectory evidence required by the assurance contract?
+          </li>
+        </ul>
+
+        <p>
+          These are related, but they are not interchangeable. Counting an agent setup
+          failure as a benchmark failure makes the model look less correct than the
+          observation supports. Counting a benchmark pass as evidence-complete makes the
+          result look more reproducible than it is.
+        </p>
+
+        <h2>The matched results</h2>
+
+        <p>
+          Codex, using <code>openai/gpt-5.5</code>, had ten clean executions, ten
+          benchmark observations, and seven passes. That is a 70% pass rate over
+          attempted tasks. The observed Harbor cost was $10.098631.
+        </p>
+
+        <p>
+          Mini-swe-agent, using <code>anthropic/claude-opus-4-6</code>, had nine clean
+          executions, nine benchmark observations, and six passes. That is a 60% pass
+          rate over attempted tasks and a 66.7% conditional pass rate among the nine
+          trustworthy observations. The observed Harbor cost was $16.182813.
+        </p>
+
+        <p>
+          The tenth mini-swe-agent task failed during agent setup and did not produce a
+          trustworthy benchmark observation. It belongs in the execution-reliability
+          result, not in the conditional benchmark denominator. Reporting both
+          denominators is more informative than hiding the setup failure or treating it
+          as an ordinary task miss.
+        </p>
+
+        <p>
+          Claude Code was also exercised, but provider-quota and evidence-path
+          interruptions prevented a fully comparable public ten-task result. I did not
+          infer a leaderboard accuracy score from those partial or diagnostic runs.
+        </p>
+
+        <h2>A small diagnostic changed the interpretation</h2>
+
+        <p>
+          The <code>raman-fitting</code> task failed after a clean execution because
+          the agent used the native wavelength axis while the verifier expected
+          calibrated Raman-shift units. A <strong>unit contract</strong> is the explicit
+          statement of which coordinate system and units the output must use.
+        </p>
+
+        <p>
+          I ran one bounded ablation, meaning a small experiment that changed one
+          condition: the unit-conversion instruction was delivered directly into the
+          agent's prompt. The run completed cleanly, produced one benchmark observation,
+          passed it, and had an observed cost of $0.198360.
+        </p>
+
+        <p>
+          That result supports a task-specific interpretation-sensitivity finding: the
+          explicit unit contract changed the outcome. It does not prove that every
+          under-specified task behaves the same way, so it remains diagnostic evidence
+          rather than a leaderboard result.
+        </p>
+
+        <h2>The assurance result was separate from the score</h2>
+
+        <p>
+          In one controlled Claude Code smoke run, a complete local JSONL event log
+          existed while Harbor did not produce an ATIF trajectory file. ATIF, the Agent
+          Trajectory Interchange Format, is the structured trajectory artifact expected
+          by the evidence path. The adapter therefore refused to label the run
+          ATIF-verified and recorded the fallback evidence source explicitly.
+        </p>
+
+        <p>
+          That is not a cosmetic distinction. If a task passes but the expected
+          trajectory artifact is missing, a reviewer can know that the answer was
+          accepted without being able to reconstruct the execution evidence in the
+          expected format. A passing score and a complete evidence record are separate
+          properties.
+        </p>
+
+        <aside class="article-callout">
+          The result I trust most is not the highest score. It is the result whose
+          denominator, failure class, evidence path, and limits are all visible.
+        </aside>
+
+        <h2>What the study does not claim</h2>
+
+        <p>
+          This is a configuration-specific public study, not a universal model ranking.
+          It does not claim that Codex or mini-swe-agent is always better. It does not
+          add the Raman ablation to the matched denominator. It does not convert
+          provider, setup, timeout, or transport failures into benchmark failures.
+        </p>
+
+        <p>
+          The public record also does not publish raw trajectories, prompts, tool
+          arguments, provider responses, credentials, or private content. The observed
+          Harbor cost is a run-level observation, not a guarantee of provider billing.
+          Those boundaries matter because a public evaluation should be reproducible
+          without making sensitive execution content public.
+        </p>
+
+        <h2>Why I am publishing the awkward parts</h2>
+
+        <p>
+          A clean leaderboard number is easy to repeat and difficult to interpret when
+          the execution path is hidden. A study that reports refusals, setup errors,
+          missing artifacts, and changed instructions is less tidy, but it gives the
+          reader a better chance of deciding what the result is actually useful for.
+        </p>
+
+        <p>
+          The work is public in the
+          <a href="https://github.com/julie-elkins/harbor-assurance-adapter" target="_blank" rel="noreferrer">Harbor Assurance Adapter repository</a>.
+          The
+          <a href="https://github.com/julie-elkins/harbor-assurance-adapter/blob/main/docs/study-summary.md" target="_blank" rel="noreferrer">study summary</a>
+          contains the frozen denominators, diagnostic boundaries, and reproducibility
+          links. The assurance layer is in the
+          <a href="https://github.com/julie-elkins/agent-assurance-harness" target="_blank" rel="noreferrer">Agent Assurance Harness</a>.
+        </p>
+
+        <p class="article-source-note">
+          Continue with the
+          <a href="https://github.com/julie-elkins/harbor-assurance-adapter/blob/main/docs/study-summary.md" target="_blank" rel="noreferrer">public study summary</a>
+          or <a href="../">return to the main site</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>Julie Elkins</span>
+        <span>Evidence, assurance, and learning for AI systems.</span>
+        <span>© <span id="year"></span></span>
+      </div>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
