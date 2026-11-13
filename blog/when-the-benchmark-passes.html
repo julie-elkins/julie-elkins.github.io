@@ -115,6 +115,25 @@
           as an ordinary task miss.
         </p>
 
+        <h2>A reproducibility update</h2>
+
+        <p>
+          After the initial comparison, I added a local cohort comparator, meaning a
+          no-cost report tool that reads the saved public task summaries without making
+          another provider call. It checks the benchmark and task-set revisions,
+          model and configuration, task count, and attempts before recomputing the
+          metrics from the task records.
+        </p>
+
+        <p>
+          The validated follow-up completed all ten mini-swe-agent executions and
+          passed nine tasks. I keep that result separate from the original denominator:
+          it is a new provider execution under recovered environment conditions, not
+          causal proof that one bridge change produced the improvement. The
+          <a href="https://github.com/julie-elkins/harbor-assurance-adapter/blob/main/docs/results/cohort-comparison-v1.json" target="_blank" rel="noreferrer">comparison report</a>
+          shows the cohort metrics and task-level deltas.
+        </p>
+
         <p>
           Claude Code was also exercised, but provider-quota and evidence-path
           interruptions prevented a fully comparable public ten-task result. I did not
