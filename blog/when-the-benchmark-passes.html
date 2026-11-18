@@ -56,6 +56,26 @@
           support a public claim.
         </p>
 
+        <aside class="article-callout">
+          <strong>New benchmark created:</strong> this work also produced
+          <a href="https://github.com/julie-elkins/esac-bench" target="_blank" rel="noreferrer">ESAC-Bench</a>,
+          a provider-neutral benchmark for testing whether an agent's completion
+          claim is supported after interruption, recovery, or handoff. The Harbor
+          runs below are calibration diagnostics for that benchmark—not ESAC-Bench
+          scores or a new provider leaderboard.
+        </aside>
+
+        <p>
+          ESAC-Bench now includes a separate
+          <a href="https://github.com/julie-elkins/esac-bench/blob/main/docs/benchmark-spec.md#recovery-track" target="_blank" rel="noreferrer">Recovery Track</a>:
+          seven synthetic cases that test restoration, duplicate-effect prevention,
+          stale-checkpoint handling, handoff, and recovery evidence. It reports
+          final-state restoration, side-effect integrity, recovery-evidence
+          completeness, and bounded recovery separately. The track is an offline
+          benchmark control, not proof of production disaster recovery, and the
+          Harbor results below remain calibration evidence.
+        </p>
+
         <p>
           The benchmark was Terminal-Bench 2.0, a public coding-agent benchmark. The
           comparison used the same ten tasks, one attempt per task, the same task-set
@@ -151,6 +171,25 @@
           the compatibility path under this configuration but does not prove that the
           explicit instruction alone caused the difference.
           <a href="https://github.com/julie-elkins/harbor-assurance-adapter/blob/main/docs/results/mini-swe-agent-qemu-compatibility-ablation-v2.json" target="_blank" rel="noreferrer">Read the QEMU diagnostic report</a>.
+        </p>
+
+        <h2>The success path also needed a bounded replication</h2>
+
+        <p>
+          After the adapter and its metadata boundary were published, I repeated
+          the explicitly selected <code>regex-log</code> task once with a refreshed
+          provider credential. Both one-task runs completed cleanly, produced one
+          benchmark observation, passed it, and left complete trajectory evidence:
+          v1 cost $0.40285075 and v2 cost $0.45102025.
+        </p>
+
+        <p>
+          This is useful evidence that the bounded success path worked twice under
+          the tested configuration. It is not evidence of model improvement or
+          general reliability: two runs of one selected task are not a matched
+          ten-task cohort, so I kept them outside the study and leaderboard-style
+          denominators. The diagnostic is also recorded in the
+          <a href="https://github.com/julie-elkins/esac-bench/blob/main/docs/build-log.md" target="_blank" rel="noreferrer">ESAC-Bench build log</a>.
         </p>
 
         <h2>A small diagnostic changed the interpretation</h2>
